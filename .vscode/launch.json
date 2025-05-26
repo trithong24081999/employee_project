@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "runserver",
+                "--noreload"
+            ],
+            "django": true,
+            "preLaunchTask": "build frontend",
+            "justMyCode": true,
+            "console": "integratedTerminal",
+            "env": {
+                "DJANGO_SETTINGS_MODULE": "employee_project.settings"
+            },
+            "python": "/Users/thong/.pyenv/versions/3.9.8/envs/3.8/bin/python"
+        }
+    ]
+}
