@@ -11,7 +11,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return res
 
 from rest_framework import serializers
+from .models.user import EmployeeUser
 from django.contrib.auth.models import User
+from .models.employee import Employee
+from .models.department import Department
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -27,3 +30,21 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             password=validated_data["password"]
         )
         return user
+    
+
+class EmployeeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Employee
+        fields = ['id','name', 'age', 'phone', 'birthday', 'email', 'joining_date', 'active', 'department']
+
+        
+class DepartmentSerializer(serializers.ModelSerializer):
+    child_ids = serializers.SerializerMethodField()
+    class Meta:
+        model = Department
+        fields = ['id', 'name', 'child_ids']
+
+    def get_child_ids(self, obj):
+        child = obj.child_ids.all()
+        return DepartmentSerializer(child, many=True).data
