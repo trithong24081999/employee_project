@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Python: Django",
             "type": "python",
@@ -12,7 +11,7 @@
                 "--noreload"
             ],
             "django": true,
-            "preLaunchTask": "build frontend",
+            // "preLaunchTask": "build frontend",
             "justMyCode": true,
             "console": "integratedTerminal",
             "env": {
@@ -22,3 +21,26 @@
         }
     ]
 }
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Docker Attach",
+//             "type": "python",
+//             "request": "attach",
+//             "preLaunchTask": "build frontend",
+
+//             "connect": {
+//                 "host": "localhost",
+//                 "port": 5678
+//             },
+
+//             "pathMappings": [
+//                 {
+//                     "localRoot": "${workspaceFolder}",
+//                     "remoteRoot": "/app"
+//                 }
+//             ]
+//         }
+//     ]
+// }

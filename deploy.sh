@@ -2,11 +2,11 @@
 cd ..
 cd employee_app
 npm run build
-mkdir -p ../employee_project/dist
-rm -rf ../employee_project/dist/
-cp -r dist/ ../employee_project/dist/
+mkdir -p ../backend/dist
+rm -rf ../backend/dist/
+cp -r dist/ ../backend/dist/
 
-INDEX_FILE="../employee_project/dist/index.html"
+INDEX_FILE="../backend/dist/index.html"
 
 sed -i '' 's|/assets/|/static/|g' "$INDEX_FILE"
 

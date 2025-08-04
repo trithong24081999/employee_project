@@ -4,7 +4,7 @@ initialize_list = ['id', 'name', 'age']
 list_employee_display = initialize_list + [field.name for field in Employee._meta.fields if field.name not in initialize_list]
 class EmployeeAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Basic Information', {'fields': ['first_name', 'last_name', 'active']}),
+        ('Basic Information', {'fields': ['first_name', 'last_name', 'active', 'department']}),
         ('Employment Details', {'fields': ['phone', 'birthday']}),
     ]
     list_filter = ['joining_date', 'active']

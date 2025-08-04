@@ -9,7 +9,9 @@ from rest_framework.decorators import action
 from django.db.models import Q
 from rest_framework import permissions
 from django.contrib.auth.models import Group
-
+from employees.e_feature.redis.redis_connect import r
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 class EmployeeRule(permissions.BasePermission):
     
     def has_permission(self, request, view):
@@ -25,21 +27,32 @@ class EmployeeRule(permissions.BasePermission):
 
 
 class EmployeeViewSet(ModelViewSet):
-    queryset = Employee.objects.all()
+    queryset = Employee.objects.all().order_by('id')
     serializer_class = EmployeeSerializer
     permission_classes = [IsAuthenticated, EmployeeRule]
 
-
     def list(self, request, *args, **kwargs):
         if request.user.groups.filter(name="employee_admin").exists():
-            queryset = Employee.objects.all()
+            queryset = Employee.objects.all().order_by('id')
             if request.query_params.get('department'):
                 queryset = queryset.filter(department__id__in=request.query_params.get('department').split(','))
         else:
             queryset = Employee.objects.filter(profile__user=request.user.id)
-        serializer = self.get_serializer(queryset, many=True)
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page or queryset, many=True)
         results = serializer.data
-
+        # for item in results:
+        #     clean_data = {k: v if not isinstance(v, bool) else 1 for k, v in item.items() if v}
+        #     r.hset(f"employee:{item.get(id)}", mapping=clean_data)
+        #     r.expire(f"employee:{item.get('id')}", 30000)
+        # channel_layer = get_channel_layer()
+        # async_to_sync(channel_layer.group_send)(
+        #     "notification_group",
+        #     {
+        #         "type": "notify_message",
+        #         "message": f" Test successfully!"
+        #     }
+        # )
         return Response({"results":results})
 
 

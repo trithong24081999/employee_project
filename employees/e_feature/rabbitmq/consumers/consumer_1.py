@@ -6,9 +6,11 @@ import os
 import django
 import time
 import sys
-sys.path.insert(0, os.path.abspath("/app"))  # 👈 make /app the import root
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'employee_project.settings')
+sys.path.insert(0, os.path.abspath("/app/backend"))  # 👈 make /app the import root
+print(os.environ)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE",'employee_project.settings')
+
 django.setup()
 print("🧠 DJANGO_SETTINGS_MODULE =", os.environ.get("DJANGO_SETTINGS_MODULE"))
 

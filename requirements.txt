@@ -87,3 +87,11 @@ urllib3==2.4.0
 webcolors==24.11.1
 zipp==3.22.0
 rest_framework_simplejwt
+redis
+channels 
+channels-redis
+watchfiles
+daphne>=4.1.0
+uvicorn
+debugpy==1.8.0
+

@@ -4,7 +4,6 @@ from django.dispatch import receiver
 
 @receiver(post_migrate)
 def load_initial_fixture(sender, **kwargs):
-    # Đảm bảo chỉ load khi migrate đúng app
     if sender.name == 'employees':
         try:
             call_command('loaddata', 'groups.json')

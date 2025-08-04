@@ -19,6 +19,6 @@ urlpatterns = [
     path('api/user/create/', UserCreateAPIView.as_view(), name='user-create'),
     path('api/', include(routers.urls)),
 
-    re_path(r'^.*$', FrontendAppView.as_view(), name='frontend'),
+    # re_path(r'^.*$', FrontendAppView.as_view(), name='frontend'),
 
 ]

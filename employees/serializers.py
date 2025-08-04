@@ -33,12 +33,15 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    department_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
-        fields = ['id','name', 'age', 'phone', 'birthday', 'email', 'joining_date', 'active', 'department']
+        fields = ['id','name', 'age', 'phone', 'birthday', 'email', 'joining_date', 'active', 'department', 'department_name']
 
-        
+    def get_department_name(self, obj):
+        return obj.department.name if obj and obj.department_id else None
+    
 class DepartmentSerializer(serializers.ModelSerializer):
     child_ids = serializers.SerializerMethodField()
     class Meta:
